@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>CMS</title>
+<style>
+:root{--ink:#0b2239;--teal:#0f8b8d;--bg:#f4f7fa;--line:#d9e2ea;--muted:#5b6b7a;--red:#c0392b}
+*{box-sizing:border-box;margin:0}
+body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+.top{background:var(--ink);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+.top a{color:#9fd8d9;font-size:.9rem}
+.tabs{display:flex;gap:6px;padding:14px 20px 0;flex-wrap:wrap;max-width:1000px;margin:0 auto}
+.tabs button{padding:9px 16px;border:1px solid var(--line);background:#fff;border-radius:8px 8px 0 0;cursor:pointer;font:inherit}
+.tabs button.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.panel{max-width:1000px;margin:0 auto;background:#fff;border:1px solid var(--line);padding:22px;border-radius:0 12px 12px 12px;margin-bottom:40px}
+label{display:block;font-weight:600;font-size:.88rem;margin:14px 0 4px}
+input,textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font:inherit}
+textarea{min-height:90px;resize:vertical}
+.row{display:flex;gap:8px;align-items:center}
+.row input{flex:1}
+button.b{background:var(--teal);color:#fff;border:0;padding:10px 18px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600}
+button.b.sec{background:#e8eef3;color:var(--ink)}
+button.b.del{background:var(--red)}
+button:disabled{opacity:.6;cursor:wait}
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:.92rem}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+td img{width:56px;height:40px;object-fit:cover;border-radius:6px}
+.acts{display:flex;gap:6px;justify-content:flex-end}
+.acts button{padding:6px 12px;font-size:.85rem}
+.head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+#login{max-width:340px;margin:12vh auto;background:#fff;padding:28px;border-radius:14px;border:1px solid var(--line)}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 20px;border-radius:8px;display:none;z-index:9}
+#toast.err{background:var(--red)}
+.hint{color:var(--muted);font-size:.82rem;margin-top:3px}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <h2 style="margin-bottom:6px">Masuk CMS</h2>
+  <p class="hint">Masukkan password admin.</p>
+  <label for="pw">Password</label>
+  <input type="password" id="pw" autocomplete="current-password">
+  <button class="b" id="loginBtn" style="width:100%;margin-top:16px">Masuk</button>
+</div>
+
+<div id="app" hidden>
+  <div class="top"><strong>CMS Website</strong><a href="index.html" target="_blank">Lihat website</a></div>
+  <div class="tabs" id="tabs"></div>
+  <div class="panel" id="panel"></div>
+</div>
+<div id="toast"></div>
+
+<script src="config.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let PASS = '', DATA = {}, TAB = 'settings';
+
+/* definisi field: [kunci, label, tipe, petunjuk] tipe: text, area, image, number */
+const SCHEMA = {
+  settings: { title: 'Pengaturan', fields: [
+    ['siteTitle','Judul website (header & footer)','text'],['logo','Logo','image'],
+    ['bannerTitle','Judul banner','text'],['bannerDesc','Deskripsi banner','area'],['bannerImage','Gambar latar banner (opsional)','image'],
+    ['waNumber','Nomor WhatsApp','text','Format 62812xxxx, tanpa + atau spasi'],['waText','Pesan awal konsultasi gratis','text'],
+    ['profileTitle','Judul profil','text'],['profileText','Isi profil','area'],['profileImage','Foto profil','image'],
+    ['bankInfo','Info pembayaran (rekening / e-wallet, satu per baris)','area'],['qrisImage','Gambar QRIS (opsional)','image'],['footerDesc','Deskripsi footer','area'],['email','Email','text'],['phone','Telepon','text'],['address','Alamat','text']] },
+  gallery: { title: 'Galeri', fields: [['image','Gambar','image'],['caption','Keterangan','text']], list: ['image','caption'] },
+  products: { title: 'Produk', fields: [['name','Nama produk','text'],['price','Harga (angka)','number'],['image','Gambar','image'],
+    ['description','Deskripsi singkat (tampil di kartu)','area'],['detail','Detail produk (tampil saat produk diklik: fitur, isi paket, dll.)','area'],['file','Link file produk (dikirim ke email pembeli setelah lunas)','text','Simpan file di Google Drive, atur sharing "Siapa saja yang memiliki link". Link ini tidak tampil di website.']], list: ['image','name','price'] },
+  articles: { title: 'Artikel', fields: [['title','Judul','text'],['image','Gambar sampul','image'],['excerpt','Ringkasan','area'],
+    ['content','Isi artikel','area']], list: ['image','title','date'] },
+  portfolio: { title: 'Portofolio', fields: [['title','Judul video','text'],['video','Link YouTube atau link file video','text','Contoh: https://youtu.be/xxxxxxxxxxx']], list: ['title','video'] },
+  orders: { title: 'Pesanan' }
+};
+
+function toast(msg, err){ const t = $('toast'); t.textContent = msg; t.className = err ? 'err' : ''; t.style.display = 'block'; clearTimeout(t._t); t._t = setTimeout(() => t.style.display = 'none', 3000); }
+const fail = e => { toast(e.message.replace(/^Error: /,''), true); document.querySelectorAll('button').forEach(b => b.disabled = false); };
+
+$('loginBtn').onclick = () => {
+  PASS = $('pw').value; $('loginBtn').disabled = true;
+  google.script.run.withSuccessHandler(d => { DATA = d; $('login').hidden = true; $('app').hidden = false; drawTabs(); draw(); })
+    .withFailureHandler(e => { $('loginBtn').disabled = false; fail(e); }).adminGetAll(PASS);
+};
+$('pw').onkeydown = e => { if(e.key === 'Enter') $('loginBtn').click(); };
+
+function drawTabs(){
+  $('tabs').innerHTML = Object.keys(SCHEMA).map(k => '<button data-t="' + k + '" class="' + (k === TAB ? 'on' : '') + '">' + SCHEMA[k].title + '</button>').join('');
+  $('tabs').querySelectorAll('button').forEach(b => b.onclick = () => { TAB = b.dataset.t; drawTabs(); draw(); });
+}
+
+function fieldHtml(f, v){
+  const [k, label, type, hint] = f; v = v || '';
+  let input;
+  if(type === 'area') input = '<textarea data-k="' + k + '">' + esc(v) + '</textarea>';
+  else if(type === 'image') input = '<div class="row"><input data-k="' + k + '" value="' + esc(v) + '" placeholder="Tempel URL gambar atau unggah"><button type="button" class="b sec" data-up="' + k + '">Unggah</button></div>' +
+    '<input type="file" accept="image/*" hidden data-file="' + k + '">';
+  else input = '<input data-k="' + k + '" type="' + (type === 'number' ? 'number' : 'text') + '" value="' + esc(v) + '">';
+  return '<label>' + label + '</label>' + input + (hint ? '<div class="hint">' + hint + '</div>' : '');
+}
+
+function bindUploads(root){
+  root.querySelectorAll('[data-up]').forEach(btn => {
+    const file = root.querySelector('[data-file="' + btn.dataset.up + '"]'), input = root.querySelector('input[data-k="' + btn.dataset.up + '"]');
+    btn.onclick = () => file.click();
+    file.onchange = () => {
+      const f = file.files[0]; if(!f) return;
+      if(f.size > 4 * 1024 * 1024) return toast('Ukuran gambar maksimal 4 MB', true);
+      btn.disabled = true; btn.textContent = 'Mengunggah...';
+      const r = new FileReader();
+      r.onload = () => google.script.run.withSuccessHandler(url => { input.value = url; btn.disabled = false; btn.textContent = 'Unggah'; toast('Gambar terunggah'); })
+        .withFailureHandler(e => { btn.disabled = false; btn.textContent = 'Unggah'; fail(e); })
+        .uploadImage(PASS, r.result.split(',')[1], f.name, f.type);
+      r.readAsDataURL(f);
+    };
+  });
+}
+
+const collect = root => { const o = {}; root.querySelectorAll('[data-k]').forEach(i => o[i.dataset.k] = i.value.trim()); return o; };
+
+function draw(){ TAB === 'settings' ? drawSettings() : TAB === 'orders' ? drawOrders() : drawList(); }
+
+function drawOrders(){
+  const p = $('panel'), rows = DATA.orders || [];
+  const col = {'Lunas':'#0f8b8d','Ditolak':'#c0392b','Menunggu Verifikasi':'#b9770e'};
+  const fmt = n => 'Rp ' + Number(n).toLocaleString('id-ID');
+  p.innerHTML = '<h2>Pesanan</h2><p class="hint">Klik "Verifikasi lunas" untuk menandai lunas dan otomatis mengirim link produk ke email pembeli.</p>' +
+    (rows.length ? '<div style="overflow:auto"><table><thead><tr><th>Waktu / ID</th><th>Pembeli</th><th>Produk</th><th>Total</th><th>Status</th><th></th></tr></thead><tbody>' +
+    rows.map(r => { let it = []; try { it = JSON.parse(r.items); } catch(e){}
+      return '<tr><td>' + new Date(Number(r.date)).toLocaleString('id-ID') + '<br><b>' + esc(r.id) + '</b></td>' +
+      '<td>' + esc(r.name) + '<br>' + esc(r.email) + '<br>' + esc(r.wa) + '</td><td>' + it.map(i => esc(i.name)).join('<br>') + '</td>' +
+      '<td>' + fmt(r.total) + '</td><td><b style="color:' + (col[r.status] || '#5b6b7a') + '">' + esc(r.status) + '</b>' +
+      (r.proof ? '<br><a href="' + esc(r.proof) + '" target="_blank">Lihat bukti</a>' : '') + '</td>' +
+      '<td><div class="acts" style="flex-direction:column">' +
+      '<button class="b" data-os="' + r.id + '|Lunas">' + (r.status === 'Lunas' ? 'Kirim ulang email' : 'Verifikasi lunas') + '</button>' +
+      (r.status !== 'Lunas' ? '<button class="b del" data-os="' + r.id + '|Ditolak">Tolak</button>' : '') + '</div></td></tr>'; }).join('') +
+    '</tbody></table></div>' : '<p class="hint" style="margin-top:18px">Belum ada pesanan.</p>');
+  p.querySelectorAll('[data-os]').forEach(b => b.onclick = () => {
+    const [id, st] = b.dataset.os.split('|');
+    if(!confirm(st === 'Lunas' ? 'Tandai lunas dan kirim email produk ke pembeli?' : 'Tolak pesanan ini?')) return;
+    b.disabled = true;
+    google.script.run.withSuccessHandler(r => { DATA.orders = r; drawOrders(); toast(st === 'Lunas' ? 'Lunas. Email terkirim' : 'Status diubah'); })
+      .withFailureHandler(fail).adminSetOrderStatus(PASS, id, st);
+  });
+}
+
+function drawSettings(){
+  const p = $('panel'), s = DATA.settings;
+  p.innerHTML = '<h2>Pengaturan umum</h2>' + SCHEMA.settings.fields.map(f => fieldHtml(f, s[f[0]])).join('') +
+    '<button class="b" id="save" style="margin-top:20px">Simpan pengaturan</button>';
+  bindUploads(p);
+  $('save').onclick = e => { e.target.disabled = true;
+    google.script.run.withSuccessHandler(r => { DATA.settings = r; e.target.disabled = false; toast('Pengaturan disimpan'); }).withFailureHandler(fail).saveSettings(PASS, collect(p)); };
+}
+
+function drawList(editRow){
+  const sc = SCHEMA[TAB], rows = DATA[TAB], p = $('panel');
+  const cell = (k, r) => k === 'image' ? (r[k] ? '<img src="' + esc(r[k]) + '" alt="">' : '') : esc(k === 'price' && r[k] ? 'Rp ' + Number(r[k]).toLocaleString('id-ID') : r[k]);
+  p.innerHTML = '<div class="head"><h2>' + sc.title + '</h2><button class="b" id="add">+ Tambah baru</button></div>' +
+    '<div id="form"></div>' +
+    (rows.length ? '<table><tbody>' + rows.map(r => '<tr>' + sc.list.map(k => '<td>' + cell(k, r) + '</td>').join('') +
+      '<td><div class="acts"><button class="b sec" data-e="' + r.id + '">Ubah</button><button class="b del" data-d="' + r.id + '">Hapus</button></div></td></tr>').join('') + '</tbody></table>'
+      : '<p class="hint" style="margin-top:18px">Belum ada data. Klik "Tambah baru" untuk mulai.</p>');
+  $('add').onclick = () => form({});
+  p.querySelectorAll('[data-e]').forEach(b => b.onclick = () => form(rows.find(r => r.id === b.dataset.e)));
+  p.querySelectorAll('[data-d]').forEach(b => b.onclick = () => {
+    if(!confirm('Hapus data ini?')) return; b.disabled = true;
+    google.script.run.withSuccessHandler(r => { DATA[TAB] = r; drawList(); toast('Dihapus'); }).withFailureHandler(fail).deleteRow(PASS, TAB, b.dataset.d);
+  });
+  if(editRow) form(editRow);
+}
+
+function form(row){
+  const f = $('form');
+  f.innerHTML = '<div style="border:1px solid var(--line);border-radius:12px;padding:6px 18px 18px;margin-top:16px;background:#fafcfd"><h3 style="margin-top:14px">' + (row.id ? 'Ubah data' : 'Data baru') + '</h3>' +
+    SCHEMA[TAB].fields.map(x => fieldHtml(x, row[x[0]])).join('') +
+    '<div class="row" style="margin-top:18px"><button class="b" id="ok">Simpan</button><button class="b sec" id="cancel">Batal</button></div></div>';
+  bindUploads(f);
+  $('cancel').onclick = () => f.innerHTML = '';
+  $('ok').onclick = e => { e.target.disabled = true;
+    const o = Object.assign({}, row, collect(f));
+    google.script.run.withSuccessHandler(r => { DATA[TAB] = r; drawList(); toast('Tersimpan'); }).withFailureHandler(fail).saveRow(PASS, TAB, o); };
+  f.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+}
+</script>
+</body>
+</html>
