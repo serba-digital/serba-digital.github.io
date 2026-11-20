@@ -26,36 +26,38 @@ h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin-bottom:28px;letter-
 .btn.alt{background:var(--teal);color:#fff;box-shadow:0 4px 14px rgba(15,139,141,.4)}
 .btn:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
 
-header{position:fixed;top:0;left:0;right:0;height:68px;background:rgba(11,34,57,.55);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border-bottom:1px solid rgba(255,255,255,.18);z-index:50;color:#fff}
+header{position:fixed;top:0;left:0;right:0;height:68px;background:rgba(7,24,41,.94);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border-bottom:1px solid rgba(255,255,255,.18);z-index:50;color:#fff}
 header .wrap{display:flex;align-items:center;justify-content:space-between;height:100%}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.1rem}
 .brand img{width:36px;height:36px;border-radius:8px;object-fit:cover}
 nav{display:flex;gap:6px}
-nav a{padding:8px 14px;border-radius:999px;font-weight:500;font-size:.95rem;color:#dbe6ef}
-nav a:hover{background:rgba(255,255,255,.16);color:#fff}
+nav a{padding:8px 14px;border-radius:999px;font-weight:600;font-size:.95rem;color:#fff}
+nav a:hover{background:rgba(255,255,255,.18);color:#fff}
+nav a.on,nav a.on:hover{background:var(--amber);color:var(--ink)}
+[hidden]{display:none!important}
 .hr{display:flex;align-items:center;gap:6px}#nav{order:1}#cartBtn{order:2}#burger{order:3}
 #cartBtn{position:relative;background:none;border:0;color:#fff;cursor:pointer;padding:8px;border-radius:50%;display:flex}
 #cartBtn:hover{background:rgba(255,255,255,.16)}
 #cartN{display:none;position:absolute;top:0;right:-2px;min-width:18px;height:18px;border-radius:9px;background:var(--amber);color:var(--ink);font-size:.72rem;font-weight:800;align-items:center;justify-content:center;padding:0 4px}
 #burger{display:none;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer}
 
-.banner{background:linear-gradient(120deg,#0b2239,#0f8b8d);color:#fff;padding:90px 0 130px;background-size:cover;background-position:center;position:relative}
+.banner{background:linear-gradient(120deg,#0b2239,#0f8b8d);color:#fff;padding:90px 0 80px;background-size:cover;background-position:center;position:relative}
 .banner.img::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,34,57,.94) 0%,rgba(11,34,57,.9) 42%,rgba(11,34,57,0) 58%)}
 .banner .wrap{position:relative}
 .banner h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.08;font-weight:800;letter-spacing:-.03em;max-width:820px}
 .banner p{font-size:1.15rem;color:#c3d2df;max-width:600px;margin:20px 0 32px}
 
 /* galeri slider */
-.gal{padding:0;margin-top:-76px;position:relative;z-index:2}
-.car{overflow:hidden;padding:26px 0 8px}
+.gal{padding:44px 0 0;position:relative}
+.car{overflow:hidden;padding:24px 0 52px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
 .ct{display:flex;gap:18px;position:relative;transition:transform .8s cubic-bezier(.4,0,.2,1)}
 .ct figure{flex:none;width:min(60vw,620px);aspect-ratio:16/9;border-radius:22px;overflow:hidden;position:relative;transform:scale(.8);opacity:.55;transition:transform .8s cubic-bezier(.4,0,.2,1),opacity .8s;cursor:pointer;border:1px solid var(--gl);box-shadow:0 10px 30px rgba(11,34,57,.18);background:#cfe3e6}
 .ct figure.on{transform:scale(1);opacity:1;box-shadow:0 22px 50px rgba(11,34,57,.32)}
 .ct img{width:100%;height:100%;object-fit:cover}
-.ct figcaption{position:absolute;left:14px;right:14px;bottom:14px;padding:8px 14px;border-radius:12px;background:rgba(255,255,255,.25);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.4);color:#fff;font-weight:600;font-size:.92rem;opacity:0;transition:opacity .6s}
+.ct figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 20px 16px;background:linear-gradient(transparent,rgba(11,34,57,.82));color:#fff;font-weight:700;font-size:.95rem;text-shadow:0 1px 3px rgba(0,0,0,.4);opacity:0;transition:opacity .6s}
 .ct figure.on figcaption{opacity:1}
 .ct figcaption:empty{display:none}
-.dots{display:flex;gap:8px;justify-content:center;padding:14px 0 0}
+.dots{display:flex;gap:8px;justify-content:center;padding:0}
 .dots button{width:9px;height:9px;border-radius:9px;border:0;background:rgba(11,34,57,.25);cursor:pointer;padding:0;transition:all .3s}
 .dots button.on{width:26px;background:var(--teal)}
 
@@ -75,25 +77,36 @@ nav a:hover{background:rgba(255,255,255,.16);color:#fff}
 .more{font-size:.85rem;font-weight:700;color:var(--teal)}
 .empty{color:var(--muted);padding:20px;border:1px dashed rgba(11,34,57,.25);border-radius:12px;background:rgba(255,255,255,.4)}
 
+/* jasa website custom */
+.svc{border-radius:28px;padding:44px;display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;color:#fff;background:linear-gradient(135deg,rgba(11,34,57,.9),rgba(15,139,141,.85));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.25);box-shadow:0 20px 60px rgba(11,34,57,.25)}
+.svc h2{color:#fff;margin-bottom:12px}
+.svc p{color:#d3e2ec;max-width:480px;margin-bottom:26px}
+.svc ul{list-style:none;padding:0;display:grid;gap:12px}
+.svc li{display:flex;gap:14px;align-items:center;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22)}
+.svc .ic{width:46px;height:46px;flex:none;border-radius:14px;background:var(--amber);color:var(--ink);display:flex;align-items:center;justify-content:center}
+.svc .ic svg{width:24px;height:24px}
+.svc b{display:block;font-size:1.02rem}
+.svc small{color:#c3d6e3;font-size:.86rem}
+
 /* modal produk */
-#pmodal{position:fixed;inset:0;background:rgba(11,34,57,.55);backdrop-filter:blur(6px);z-index:100;display:none;overflow:auto;padding:30px 16px}
-#pmodal.on{display:block}
-#pmodal .box{background:rgba(255,255,255,.8);backdrop-filter:blur(24px) saturate(170%);-webkit-backdrop-filter:blur(24px) saturate(170%);border:1px solid var(--gl);max-width:920px;margin:0 auto;border-radius:22px;position:relative;display:grid;grid-template-columns:1.05fr 1fr;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.3)}
-#pmodal .pi{display:flex;flex-direction:column;background:rgba(15,139,141,.08)}
-.pm{position:relative;flex:1;min-height:320px;background:#dbe8ec}
+#pdetail{padding:34px 0 64px}
+.back{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.65);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--gl);border-radius:999px;padding:9px 20px;font:inherit;font-weight:700;color:var(--ink);cursor:pointer;box-shadow:0 4px 14px rgba(11,34,57,.1)}
+.back:hover{background:#fff}
+.pbox{margin-top:18px;border-radius:26px;display:grid;grid-template-columns:1.1fr 1fr;overflow:hidden;background:rgba(255,255,255,.62);backdrop-filter:blur(24px) saturate(170%);-webkit-backdrop-filter:blur(24px) saturate(170%);border:1px solid var(--gl);box-shadow:0 20px 60px rgba(11,34,57,.16)}
+#pdetail .pi{display:flex;flex-direction:column;background:rgba(15,139,141,.08)}
+.pm{position:relative;flex:1;min-height:440px;background:#dbe8ec}
 .pm img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .ar{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.35);backdrop-filter:blur(8px);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer;z-index:2}
 .ar.l{left:10px}.ar.r{right:10px}
 .th{display:flex;gap:8px;padding:10px;overflow-x:auto}
 .th img{width:66px;height:50px;flex:none;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent;opacity:.65}
 .th img.on{border-color:var(--teal);opacity:1}
-#pmodal .pt{padding:32px 28px;display:flex;flex-direction:column;gap:10px}
-#pmodal h3{font-size:1.6rem;line-height:1.25}
-#pmodal .price{font-size:1.5rem}
-#pmodal .txt{white-space:pre-line;color:var(--muted);font-size:1rem}
-#pmodal .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:14px}
-#pmodal .acts .btn{text-align:center;flex:1;min-width:130px}
-#pclose{position:absolute;top:10px;right:14px;background:rgba(255,255,255,.7);border:0;border-radius:50%;width:36px;height:36px;font-size:1.5rem;cursor:pointer;z-index:3}
+#pdetail .pt{padding:32px 28px;display:flex;flex-direction:column;gap:10px}
+#pdetail h3{font-size:1.6rem;line-height:1.25}
+#pdetail .price{font-size:1.5rem}
+#pdetail .txt{white-space:pre-line;color:var(--muted);font-size:1rem}
+#pdetail .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:14px}
+#pdetail .acts .btn{text-align:center;flex:1;min-width:130px}
 
 /* keranjang */
 #cmodal{position:fixed;inset:0;background:rgba(11,34,57,.7);z-index:110;display:none;overflow:auto;padding:30px 16px}
@@ -157,21 +170,21 @@ footer .brand{color:#fff;margin-bottom:12px}
 
 @media(max-width:800px){
   #burger{display:block}
-  nav{display:none;position:absolute;top:68px;left:0;right:0;background:rgba(11,34,57,.88);backdrop-filter:blur(16px);flex-direction:column;padding:10px 20px 18px}
+  nav{display:none;position:absolute;top:68px;left:0;right:0;background:rgba(7,24,41,.98);backdrop-filter:blur(16px);flex-direction:column;padding:10px 20px 18px}
   nav.on{display:flex}
   .fgrid{grid-template-columns:1fr;gap:30px}
   section{padding:48px 0}
-  .banner{padding:64px 0 120px}
+  .banner{padding:64px 0 56px}
   .banner.img::before{background:rgba(11,34,57,.82)}
   .ct figure{width:78vw}
   #products{grid-template-columns:repeat(2,1fr);gap:12px}
   #products .body{padding:12px}
   #products h3{font-size:.95rem}
   #products .card .btn{padding:8px 10px;font-size:.82rem}
-  #pmodal{padding:0}
-  #pmodal .box{grid-template-columns:1fr;border-radius:0;min-height:100%}
+  .pbox{grid-template-columns:1fr;border-radius:22px}
+  .svc{grid-template-columns:1fr;padding:26px 20px;gap:24px}
   .pm{min-height:0;flex:none;aspect-ratio:16/11}
-  #pmodal .pt{padding:22px 20px}
+  #pdetail .pt{padding:22px 20px}
 }
 @media (prefers-reduced-motion:reduce){.ct,.ct figure{transition:none}}
 </style>
@@ -196,12 +209,14 @@ footer .brand{color:#fff;margin-bottom:12px}
     <nav id="nav">
       <a href="#beranda" data-go="beranda">Beranda</a>
       <a href="#produk" data-go="produk">Produk</a>
+      <a href="#jasa" data-go="jasa">Jasa Website</a>
       <a href="#kontak" data-go="kontak">Kontak</a>
     </nav></div>
   </div>
 </header>
 
 <main>
+<div id="home">
   <div id="beranda" class="banner">
     <div class="wrap">
       <h1 id="bTitle"></h1>
@@ -215,6 +230,32 @@ footer .brand{color:#fff;margin-bottom:12px}
   <section id="produk"><div class="wrap products">
     <h2>Produk</h2><div class="grid" id="products"></div>
   </div></section>
+
+  <section id="jasa"><div class="wrap"><div class="svc">
+    <div>
+      <h2>Jasa Pembuatan Website Custom</h2>
+      <p>Butuh website atau aplikasi yang benar-benar sesuai kebutuhan bisnis Anda? Kami buatkan dari nol sampai siap online.</p>
+      <a class="btn" id="svcBtn" target="_blank" rel="noopener">Mulai konsultasi</a>
+    </div>
+    <ul>
+      <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/></svg></span><div><b>Full Custom Coding</b><small>Dikodekan dari nol sesuai kebutuhan Anda.</small></div></li>
+      <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="14" height="11" rx="2"/><path d="M8 19h4M10 15v4"/><rect x="16" y="9" width="5" height="10" rx="1.5"/></svg></span><div><b>Website &amp; Apps</b><small>Situs web dan aplikasi dalam satu layanan.</small></div></li>
+      <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><div><b>SEO Friendly</b><small>Struktur siap dikenali mesin pencari.</small></div></li>
+    </ul>
+  </div></div></section>
+</div>
+
+<section id="pdetail" hidden><div class="wrap">
+  <button class="back" id="pback">&larr; Kembali ke produk</button>
+  <div class="pbox">
+    <div class="pi" id="pImgBox"></div>
+    <div class="pt">
+      <h3 id="pmName"></h3><div class="price" id="pmPrice"></div>
+      <div class="txt" id="pmText"></div>
+      <div class="acts"><button class="btn" id="pmBuy">Beli sekarang</button><button class="btn alt" id="pmAdd">+ Keranjang</button><a class="btn" id="pmAsk" target="_blank" rel="noopener" style="background:rgba(255,255,255,.7);box-shadow:none">Tanya via WhatsApp</a></div>
+    </div>
+  </div>
+</div></section>
 </main>
 
 <footer id="kontak">
@@ -230,15 +271,6 @@ footer .brand{color:#fff;margin-bottom:12px}
   </div>
 </footer>
 
-<div id="pmodal" role="dialog" aria-modal="true"><div class="box">
-  <button id="pclose" aria-label="Tutup">&times;</button>
-  <div class="pi" id="pImgBox"></div>
-  <div class="pt">
-    <h3 id="pmName"></h3><div class="price" id="pmPrice"></div>
-    <div class="txt" id="pmText"></div>
-    <div class="acts"><button class="btn" id="pmBuy">Beli sekarang</button><button class="btn alt" id="pmAdd">+ Keranjang</button><a class="btn" id="pmAsk" target="_blank" rel="noopener" style="background:rgba(255,255,255,.7);box-shadow:none">Tanya via WhatsApp</a></div>
-  </div>
-</div></div>
 
 <div id="cmodal" role="dialog" aria-modal="true"><div class="cbox"><button id="cclose" aria-label="Tutup">&times;</button><div id="cbody"></div></div></div>
 <div id="flash"></div>
@@ -261,12 +293,11 @@ let li = 0; const t0 = Date.now();
 const tick = setInterval(() => { if(li < LINES.length){ const d = document.createElement('div'); d.textContent = LINES[li++]; $('tl').appendChild(d); } }, 420);
 function hideLoader(){ setTimeout(() => { clearInterval(tick); $('loader').classList.add('off'); }, Math.max(0, 1700 - (Date.now() - t0))); }
 
-function go(id){ const el = $(id); if(el) window.scrollTo({top: id === 'beranda' ? 0 : el.offsetTop - 68, behavior: 'smooth'}); $('nav').classList.remove('on'); }
+function go(id){ history.pushState(null, '', '#' + id); showHome(id); }
 document.querySelectorAll('[data-go]').forEach(a => a.onclick = e => { e.preventDefault(); go(a.dataset.go); });
 $('burger').onclick = () => $('nav').classList.toggle('on');
-$('pclose').onclick = () => $('pmodal').classList.remove('on');
-$('pmodal').onclick = e => { if(e.target === $('pmodal')) $('pmodal').classList.remove('on'); };
-document.addEventListener('keydown', e => { if(e.key === 'Escape'){ $('cmodal').classList.remove('on'); $('pmodal').classList.remove('on'); } });
+$('pback').onclick = () => { if(history.length > 1) history.back(); else location.hash = '#produk'; };
+document.addEventListener('keydown', e => { if(e.key === 'Escape') $('cmodal').classList.remove('on'); });
 $('yr').textContent = new Date().getFullYear();
 
 function waLink(s, text){ return 'https://wa.me/' + s.waNumber.replace(/\D/g, '') + '?text=' + encodeURIComponent(text || s.waText); }
@@ -299,8 +330,36 @@ function buildGallery(list){
   window.addEventListener('load', gpos);
 }
 
-/* ---- detail produk dengan galeri foto ---- */
+/* ---- halaman detail produk (rute: #p-ID) ---- */
+let SY = 0;
+function mark(){
+  let cur = 'beranda';
+  if(!$('pdetail').hidden) cur = 'produk';
+  else { const y = window.scrollY + 120; ['produk', 'jasa', 'kontak'].forEach(id => { if($(id).offsetTop <= y) cur = id; }); }
+  document.querySelectorAll('nav a').forEach(a => a.classList.toggle('on', a.dataset.go === cur));
+}
+window.addEventListener('scroll', mark, {passive: true});
+function showHome(id, restore){
+  const was = !$('pdetail').hidden;
+  $('pdetail').hidden = true; $('home').hidden = false;
+  if(D) document.title = D.settings.siteTitle;
+  gpos();
+  const el = id && $(id);
+  if(el) window.scrollTo({top: id === 'beranda' ? 0 : el.offsetTop - 68, behavior: was ? 'instant' : 'smooth'});
+  else if(was && restore) window.scrollTo({top: SY, behavior: 'instant'});
+  $('nav').classList.remove('on'); mark();
+}
+function route(){
+  const h = decodeURIComponent(location.hash.slice(1));
+  const p = h.indexOf('p-') === 0 && D && D.products.find(x => x.id === h.slice(2));
+  if(p) return openProduct(p, D.settings);
+  if(!$('pdetail').hidden) showHome(null, true);
+  mark();
+}
+window.addEventListener('hashchange', route);
+
 function openProduct(p, s){
+  if($('pdetail').hidden) SY = window.scrollY;
   const im = imgsOf(p); let k = 0;
   $('pmName').textContent = p.name; $('pmPrice').textContent = rupiah(p.price);
   $('pmText').textContent = p.detail || p.description;
@@ -312,10 +371,12 @@ function openProduct(p, s){
     $('pPrev').onclick = () => show(k - 1); $('pNext').onclick = () => show(k + 1);
     $('pImgBox').querySelectorAll('.th img').forEach(t => t.onclick = () => show(+t.dataset.k));
   }
-  $('pmBuy').onclick = () => { $('pmodal').classList.remove('on'); addToCart(p.id, true); };
-  $('pmAdd').onclick = () => { addToCart(p.id); $('pmodal').classList.remove('on'); };
+  $('pmBuy').onclick = () => addToCart(p.id, true);
+  $('pmAdd').onclick = () => addToCart(p.id);
   $('pmAsk').href = waLink(s, 'Halo, saya ingin bertanya tentang produk ' + p.name);
-  $('pmodal').classList.add('on');
+  $('home').hidden = true; $('pdetail').hidden = false;
+  document.title = p.name + ' - ' + s.siteTitle;
+  window.scrollTo({top: 0, behavior: 'instant'}); $('nav').classList.remove('on'); mark();
 }
 
 function render(d){
@@ -328,6 +389,7 @@ function render(d){
   const b = document.querySelector('.banner');
   if(s.bannerImage){ b.style.backgroundImage = 'url("' + s.bannerImage + '")'; b.classList.add('img'); }
   $('waBtn').href = waLink(s); $('waFloat').href = waLink(s);
+  $('svcBtn').href = waLink(s, 'Halo, saya ingin konsultasi pembuatan website custom.');
 
   buildGallery(d.gallery);
 
@@ -339,7 +401,7 @@ function render(d){
     : empty('Produk akan segera hadir.');
   CART = CART.filter(id => D.products.some(p => p.id === id)); saveCart();
   document.querySelectorAll('#products .card').forEach(c => {
-    const open = () => openProduct(D.products[c.dataset.i], s);
+    const open = () => { location.hash = '#p-' + D.products[c.dataset.i].id; };
     c.onclick = e => { const b = e.target.closest('[data-add]'); if(b){ addToCart(b.dataset.add); return; } open(); };
     c.onkeydown = e => { if(e.key === 'Enter') open(); };
   });
@@ -428,7 +490,7 @@ const V = {
 };
 saveCart();
 
-google.script.run.withSuccessHandler(d => { render(d); hideLoader(); })
+google.script.run.withSuccessHandler(d => { render(d); route(); hideLoader(); })
   .withFailureHandler(e => { $('bTitle').textContent = 'Gagal memuat data'; $('bDesc').textContent = e.message; hideLoader(); })
   .getPublicData();
 </script>
