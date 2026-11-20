@@ -1,7 +1,7 @@
 /* ===== KONFIGURASI - hanya file ini yang perlu Anda edit ===== */
 
 // URL Web app dari Apps Script (Deploy > Manage deployments > Web app URL, berakhiran /exec)
-const API_URL = 'PASTE_URL_WEB_APP_ANDA_DI_SINI';
+const API_URL = 'https://script.google.com/macros/s/AKfycbyz_bc-4qFM6LcrIjV4DBkvgstd_nMIp8q1D7vkLt52b8caZHYMKvBefWIb3I3cWNG8/exec';
 
 // Logo & nama untuk halaman loading kunjungan PERTAMA (setelahnya diambil otomatis dari pengaturan CMS)
 const SITE = { siteTitle: 'Toko Digital', logo: '' };
