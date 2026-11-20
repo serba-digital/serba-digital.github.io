@@ -4,52 +4,168 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>CMS</title>
+<title>CMS | SerbaDigital</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0b2239;--teal:#0f8b8d;--bg:#f4f7fa;--line:#d9e2ea;--muted:#5b6b7a;--red:#c0392b}
+:root{--ink:#0b2239;--teal:#0f8b8d;--amber:#f5b841;--line:rgba(11,34,57,.12);--muted:#546576;--red:#c0392b;--gl:rgba(255,255,255,.7)}
 *{box-sizing:border-box;margin:0}
-body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
-.top{background:var(--ink);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
-.top a{color:#9fd8d9;font-size:.9rem}
-.tabs{display:flex;gap:6px;padding:14px 20px 0;flex-wrap:wrap;max-width:1000px;margin:0 auto}
-.tabs button{padding:9px 16px;border:1px solid var(--line);background:#fff;border-radius:8px 8px 0 0;cursor:pointer;font:inherit}
-.tabs button.on{background:var(--teal);color:#fff;border-color:var(--teal)}
-.panel{max-width:1000px;margin:0 auto;background:#fff;border:1px solid var(--line);padding:22px;border-radius:0 12px 12px 12px;margin-bottom:40px}
-label{display:block;font-weight:600;font-size:.88rem;margin:14px 0 4px}
-input,textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font:inherit}
-textarea{min-height:90px;resize:vertical}
+html{background:#e9f1f7}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);line-height:1.55;min-height:100vh}
+[hidden]{display:none!important}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:linear-gradient(135deg,#e2f4f3,#e8eefb 55%,#fdf1d9)}
+.bg i{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55}
+.bg i:nth-child(1){width:440px;height:440px;background:#2cc3c0;top:-100px;left:-120px}
+.bg i:nth-child(2){width:380px;height:380px;background:#f5b841;right:-100px;top:38%}
+.bg i:nth-child(3){width:420px;height:420px;background:#6f8cff;bottom:-120px;left:32%}
+.glass{background:rgba(255,255,255,.58);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid var(--gl);box-shadow:0 8px 32px rgba(11,34,57,.10)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+/* form */
+label{display:block;font-weight:700;font-size:.85rem;margin:16px 0 5px}
+input,textarea{width:100%;padding:11px 13px;border:1px solid rgba(11,34,57,.16);border-radius:12px;font:inherit;background:rgba(255,255,255,.7);color:var(--ink);transition:border-color .2s,box-shadow .2s}
+input:focus,textarea:focus{outline:0;border-color:var(--teal);box-shadow:0 0 0 4px rgba(15,139,141,.16)}
+textarea{min-height:92px;resize:vertical}
+.hint{color:var(--muted);font-size:.8rem;margin-top:4px}
 .row{display:flex;gap:8px;align-items:center}
-.row input{flex:1}
-button.b{background:var(--teal);color:#fff;border:0;padding:10px 18px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600}
-button.b.sec{background:#e8eef3;color:var(--ink)}
-button.b.del{background:var(--red)}
-button:disabled{opacity:.6;cursor:wait}
-table{width:100%;border-collapse:collapse;margin-top:18px;font-size:.92rem}
-th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
-td img{width:56px;height:40px;object-fit:cover;border-radius:6px}
-.acts{display:flex;gap:6px;justify-content:flex-end}
-.acts button{padding:6px 12px;font-size:.85rem}
-.head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-#login{max-width:340px;margin:12vh auto;background:#fff;padding:28px;border-radius:14px;border:1px solid var(--line)}
-#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 20px;border-radius:8px;display:none;z-index:9}
+.row input{flex:1;min-width:0}
+.b{background:var(--teal);color:#fff;border:0;padding:11px 20px;border-radius:999px;cursor:pointer;font:inherit;font-weight:700;font-size:.92rem;box-shadow:0 4px 14px rgba(15,139,141,.35);transition:transform .15s,filter .15s;white-space:nowrap}
+.b:hover{filter:brightness(1.08)}
+.b:active{transform:scale(.97)}
+.b.amber{background:var(--amber);color:var(--ink);box-shadow:0 4px 14px rgba(245,184,65,.45)}
+.b.sec{background:rgba(255,255,255,.7);color:var(--ink);box-shadow:none;border:1px solid rgba(11,34,57,.14)}
+.b.del{background:var(--red);box-shadow:0 4px 14px rgba(192,57,43,.3)}
+.b.sm{padding:7px 14px;font-size:.82rem}
+.b:disabled{opacity:.55;cursor:wait}
+
+/* login */
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.lbox{width:min(400px,100%);border-radius:26px;padding:36px 30px 30px;text-align:center}
+.mark{width:64px;height:64px;margin:0 auto 18px;border-radius:20px;background:linear-gradient(135deg,var(--teal),#2cc3c0);display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 10px 26px rgba(15,139,141,.45)}
+.mark svg{width:30px;height:30px}
+.lbox h1{font-size:1.6rem;font-weight:800;letter-spacing:-.02em}
+.lbox p{color:var(--muted);font-size:.92rem;margin-top:4px}
+.lbox form{text-align:left;margin-top:12px}
+.pwrow{position:relative}
+.pwrow input{padding-right:70px}
+.pwrow button{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--teal);font:inherit;font-weight:700;font-size:.82rem;cursor:pointer;padding:6px 8px}
+.lbox .b{width:100%;margin-top:20px;padding:13px}
+#lerr{color:var(--red);font-size:.86rem;margin-top:12px;min-height:1.2em}
+
+/* layout app */
+#app{display:grid;grid-template-columns:240px 1fr;gap:20px;max-width:1240px;margin:0 auto;padding:20px}
+aside{position:sticky;top:20px;align-self:start;border-radius:24px;padding:20px 14px;display:flex;flex-direction:column;gap:4px}
+.sb{display:flex;align-items:center;gap:10px;padding:4px 10px 18px;font-weight:800;font-size:1.05rem}
+.sb .mark{width:38px;height:38px;border-radius:12px;margin:0;box-shadow:none}
+.sb .mark svg{width:20px;height:20px}
+aside button.nv{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;text-align:left;padding:11px 14px;border:0;border-radius:14px;background:none;font:inherit;font-weight:600;color:var(--ink);cursor:pointer;transition:background .2s}
+aside button.nv:hover{background:rgba(255,255,255,.55)}
+aside button.nv.on{background:var(--ink);color:#fff;box-shadow:0 6px 16px rgba(11,34,57,.3)}
+.bdg{background:var(--amber);color:var(--ink);border-radius:999px;font-size:.72rem;font-weight:800;padding:1px 8px}
+aside .gap{flex:1;min-height:14px}
+aside a,aside .out{padding:10px 14px;border-radius:14px;font-weight:600;font-size:.9rem;color:var(--muted);text-decoration:none;cursor:pointer;border:0;background:none;font-family:inherit;text-align:left}
+aside a:hover,aside .out:hover{background:rgba(255,255,255,.55);color:var(--ink)}
+main{min-width:0}
+.panel{border-radius:24px;padding:26px}
+.panel h2{font-size:1.5rem;font-weight:800;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:.9rem;margin-top:2px}
+.head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+
+/* ringkasan */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:20px 0 6px}
+.st{border-radius:20px;padding:18px;background:rgba(255,255,255,.6);border:1px solid var(--gl)}
+.st b{display:block;font-size:1.7rem;font-weight:800;letter-spacing:-.02em;line-height:1.2}
+.st span{color:var(--muted);font-size:.84rem;font-weight:600}
+.st.hot{background:linear-gradient(135deg,var(--ink),#145a67);color:#fff}
+.st.hot span{color:#bfe1e2}
+.sec3{margin-top:24px}
+.sec3 h3,.grp h3{font-size:1.05rem;font-weight:800}
+
+/* kelompok pengaturan */
+.grp{border-radius:20px;padding:6px 20px 20px;background:rgba(255,255,255,.5);border:1px solid var(--gl);margin-top:18px}
+.grp h3{margin-top:16px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+.cols .full{grid-column:1/-1}
+.stick{position:sticky;bottom:14px;margin-top:22px;display:flex;justify-content:flex-end}
+.stick .b{box-shadow:0 10px 30px rgba(15,139,141,.45)}
+
+/* gambar */
+.pv{display:flex;gap:10px;align-items:center;margin-top:8px}
+.pv img{width:84px;height:56px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+.ims{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px;margin-top:6px}
+.im{position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#dfe9ee}
+.im img{width:100%;height:100%;object-fit:cover}
+.im .tg{position:absolute;left:6px;top:6px;background:var(--amber);color:var(--ink);font-size:.66rem;font-weight:800;padding:1px 8px;border-radius:999px}
+.im .ac{position:absolute;inset:auto 0 0 0;display:flex;justify-content:space-between;padding:5px;background:linear-gradient(transparent,rgba(11,34,57,.7))}
+.im .ac button{width:26px;height:26px;border-radius:50%;border:0;background:rgba(255,255,255,.85);cursor:pointer;font-weight:800;line-height:1;color:var(--ink)}
+.im .ac button.x{color:var(--red)}
+.add{aspect-ratio:4/3;border:2px dashed rgba(15,139,141,.5);border-radius:14px;background:rgba(15,139,141,.07);color:var(--teal);font:inherit;font-weight:700;font-size:.82rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.add:hover{background:rgba(15,139,141,.14)}
+.add b{font-size:1.5rem;line-height:1}
+
+/* daftar */
+.list{margin-top:18px;display:grid;gap:10px}
+.it{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:18px;background:rgba(255,255,255,.6);border:1px solid var(--gl)}
+.it .th{position:relative;width:76px;height:54px;flex:none;border-radius:12px;overflow:hidden;background:#dfe9ee}
+.it .th img{width:100%;height:100%;object-fit:cover}
+.it .th em{position:absolute;right:3px;bottom:3px;font-style:normal;font-size:.66rem;font-weight:800;background:rgba(11,34,57,.7);color:#fff;border-radius:999px;padding:0 7px}
+.it .tx{flex:1;min-width:0}
+.it .tx b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.it .tx span{color:var(--teal);font-weight:700;font-size:.9rem}
+.acts{display:flex;gap:6px}
+.fm{border-radius:20px;padding:6px 20px 20px;margin-top:16px;background:rgba(255,255,255,.7);border:1px solid var(--gl)}
+.fm h3{margin-top:14px}
+.empty{margin-top:18px;padding:26px;border:1px dashed rgba(11,34,57,.25);border-radius:18px;color:var(--muted);text-align:center;background:rgba(255,255,255,.4)}
+
+/* pesanan */
+.od{border-radius:18px;padding:16px;background:rgba(255,255,255,.6);border:1px solid var(--gl);display:grid;grid-template-columns:1.2fr 1.2fr auto;gap:14px;align-items:center}
+.od small{color:var(--muted);display:block}
+.pill{display:inline-block;padding:2px 12px;border-radius:999px;font-size:.78rem;font-weight:800;color:#fff;margin-bottom:4px}
+.od .acts{flex-direction:column}
+
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 22px;border-radius:999px;display:none;z-index:99;font-weight:600;font-size:.9rem;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 #toast.err{background:var(--red)}
-.hint{color:var(--muted);font-size:.82rem;margin-top:3px}
+
+@media(max-width:860px){
+  #app{grid-template-columns:1fr;padding:12px}
+  aside{position:static;flex-direction:row;flex-wrap:wrap;padding:12px;gap:6px}
+  .sb{width:100%;padding:0 6px 8px}
+  aside button.nv{width:auto;padding:9px 14px}
+  aside .gap{display:none}
+  .panel{padding:18px}
+  .cols{grid-template-columns:1fr}
+  .od{grid-template-columns:1fr}
+  .od .acts{flex-direction:row}
+  .it{flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
+<div class="bg"><i></i><i></i><i></i></div>
 
 <div id="login">
-  <h2 style="margin-bottom:6px">Masuk CMS</h2>
-  <p class="hint">Masukkan password admin.</p>
-  <label for="pw">Password</label>
-  <input type="password" id="pw" autocomplete="current-password">
-  <button class="b" id="loginBtn" style="width:100%;margin-top:16px">Masuk</button>
+  <div class="lbox glass">
+    <div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+    <h1>Masuk ke CMS</h1>
+    <p>Kelola produk, galeri, dan pesanan website Anda.</p>
+    <form id="lform">
+      <label for="pw">Password admin</label>
+      <div class="pwrow"><input type="password" id="pw" autocomplete="current-password" required><button type="button" id="eye">Lihat</button></div>
+      <div id="lerr" role="alert"></div>
+      <button class="b" id="loginBtn" type="submit">Masuk</button>
+    </form>
+  </div>
 </div>
 
 <div id="app" hidden>
-  <div class="top"><strong>CMS Website</strong><a href="index.html" target="_blank">Lihat website</a></div>
-  <div class="tabs" id="tabs"></div>
-  <div class="panel" id="panel"></div>
+  <aside class="glass">
+    <div class="sb"><div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg></div><span id="sbName">CMS</span></div>
+    <div id="tabs" style="display:contents"></div>
+    <div class="gap"></div>
+    <a href="index.html" target="_blank" rel="noopener">Lihat website</a>
+    <button class="out" id="logout">Keluar</button>
+  </aside>
+  <main><div class="panel glass" id="panel"></div></main>
 </div>
 <div id="toast"></div>
 
@@ -57,126 +173,185 @@ td img{width:56px;height:40px;object-fit:cover;border-radius:6px}
 <script>
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let PASS = '', DATA = {}, TAB = 'settings';
+const fmt = n => 'Rp ' + Number(n || 0).toLocaleString('id-ID');
+const urlsOf = v => String(v || '').split('\n').map(x => x.trim()).filter(Boolean);
+let PASS = '', DATA = {}, TAB = 'home';
 
-/* definisi field: [kunci, label, tipe, petunjuk] tipe: text, area, image, number */
+/* [kunci, label, tipe, petunjuk]  tipe: text | area | image | images | number */
 const SCHEMA = {
-  settings: { title: 'Pengaturan', fields: [
-    ['siteTitle','Judul website (header & footer)','text'],['logo','Logo','image'],
-    ['bannerTitle','Judul banner','text'],['bannerDesc','Deskripsi banner','area'],['bannerImage','Gambar latar banner (opsional)','image'],
-    ['waNumber','Nomor WhatsApp','text','Format 62812xxxx, tanpa + atau spasi'],['waText','Pesan awal konsultasi gratis','text'],
-    ['profileTitle','Judul profil','text'],['profileText','Isi profil','area'],['profileImage','Foto profil','image'],
-    ['bankInfo','Info pembayaran (rekening / e-wallet, satu per baris)','area'],['qrisImage','Gambar QRIS (opsional)','image'],['footerDesc','Deskripsi footer','area'],['email','Email','text'],['phone','Telepon','text'],['address','Alamat','text']] },
-  gallery: { title: 'Galeri', fields: [['image','Gambar','image'],['caption','Keterangan','text']], list: ['image','caption'] },
-  products: { title: 'Produk', fields: [['name','Nama produk','text'],['price','Harga (angka)','number'],['image','Gambar','image'],
-    ['description','Deskripsi singkat (tampil di kartu)','area'],['detail','Detail produk (tampil saat produk diklik: fitur, isi paket, dll.)','area'],['file','Link file produk (dikirim ke email pembeli setelah lunas)','text','Simpan file di Google Drive, atur sharing "Siapa saja yang memiliki link". Link ini tidak tampil di website.']], list: ['image','name','price'] },
-  articles: { title: 'Artikel', fields: [['title','Judul','text'],['image','Gambar sampul','image'],['excerpt','Ringkasan','area'],
-    ['content','Isi artikel','area']], list: ['image','title','date'] },
-  portfolio: { title: 'Portofolio', fields: [['title','Judul video','text'],['video','Link YouTube atau link file video','text','Contoh: https://youtu.be/xxxxxxxxxxx']], list: ['title','video'] },
+  home: { title: 'Ringkasan' },
+  settings: { title: 'Pengaturan', groups: [
+    ['Identitas', [['siteTitle','Judul website (header & footer)','text'],['logo','Logo','image']]],
+    ['Banner utama', [['bannerTitle','Judul banner','text'],['bannerDesc','Deskripsi banner','area'],['bannerImage','Gambar latar banner (opsional)','image']]],
+    ['WhatsApp', [['waNumber','Nomor WhatsApp','text','Format 62812xxxx, tanpa + atau spasi'],['waText','Pesan awal konsultasi gratis','text']]],
+    ['Pembayaran', [['bankInfo','Info pembayaran (rekening / e-wallet, satu per baris)','area'],['qrisImage','Gambar QRIS (opsional)','image']]],
+    ['Footer & kontak', [['footerDesc','Deskripsi footer','area'],['email','Email','text'],['phone','Telepon','text'],['address','Alamat','text']]]
+  ]},
+  gallery: { title: 'Galeri', sub: 'Foto tampil bergantian otomatis di beranda.', fields: [['image','Gambar','image'],['caption','Keterangan','text']] },
+  products: { title: 'Produk', sub: 'Satu produk bisa punya banyak foto. Foto pertama jadi sampul.', fields: [
+    ['name','Nama produk','text'],['price','Harga (angka)','number'],
+    ['image','Foto produk','images','Foto pertama tampil di kartu produk. Gunakan tombol panah untuk mengatur urutan.'],
+    ['description','Deskripsi singkat (tampil di kartu)','area'],
+    ['detail','Detail produk (tampil saat produk diklik: fitur, isi paket, dll.)','area'],
+    ['file','Link file produk (dikirim ke email pembeli setelah lunas)','text','Simpan file di Google Drive, atur sharing "Siapa saja yang memiliki link". Link ini tidak tampil di website.']] },
   orders: { title: 'Pesanan' }
 };
 
-function toast(msg, err){ const t = $('toast'); t.textContent = msg; t.className = err ? 'err' : ''; t.style.display = 'block'; clearTimeout(t._t); t._t = setTimeout(() => t.style.display = 'none', 3000); }
-const fail = e => { toast(e.message.replace(/^Error: /,''), true); document.querySelectorAll('button').forEach(b => b.disabled = false); };
+function toast(msg, err){ const t = $('toast'); t.textContent = msg; t.className = err ? 'err' : ''; t.style.display = 'block'; clearTimeout(t._t); t._t = setTimeout(() => t.style.display = 'none', 3200); }
+const fail = e => { toast(String(e.message || e).replace(/^Error: /,''), true); document.querySelectorAll('button:disabled').forEach(b => b.disabled = false); };
 
-$('loginBtn').onclick = () => {
-  PASS = $('pw').value; $('loginBtn').disabled = true;
-  google.script.run.withSuccessHandler(d => { DATA = d; $('login').hidden = true; $('app').hidden = false; drawTabs(); draw(); })
-    .withFailureHandler(e => { $('loginBtn').disabled = false; fail(e); }).adminGetAll(PASS);
+/* ---- login ---- */
+$('eye').onclick = () => { const p = $('pw'), h = p.type === 'password'; p.type = h ? 'text' : 'password'; $('eye').textContent = h ? 'Sembunyi' : 'Lihat'; };
+$('lform').onsubmit = e => {
+  e.preventDefault(); PASS = $('pw').value; $('lerr').textContent = '';
+  const b = $('loginBtn'); b.disabled = true; b.textContent = 'Memeriksa...';
+  google.script.run.withSuccessHandler(d => { DATA = d; $('login').hidden = true; $('app').hidden = false; $('sbName').textContent = d.settings.siteTitle || 'CMS'; drawTabs(); draw(); })
+    .withFailureHandler(er => { b.disabled = false; b.textContent = 'Masuk'; $('lerr').textContent = String(er.message || er).replace(/^Error: /,''); $('pw').select(); }).adminGetAll(PASS);
 };
-$('pw').onkeydown = e => { if(e.key === 'Enter') $('loginBtn').click(); };
+$('logout').onclick = () => { PASS = ''; DATA = {}; $('pw').value = ''; $('loginBtn').disabled = false; $('loginBtn').textContent = 'Masuk'; $('app').hidden = true; $('login').hidden = false; $('pw').focus(); };
 
+function pending(){ return (DATA.orders || []).filter(o => o.status === 'Menunggu Verifikasi').length; }
 function drawTabs(){
-  $('tabs').innerHTML = Object.keys(SCHEMA).map(k => '<button data-t="' + k + '" class="' + (k === TAB ? 'on' : '') + '">' + SCHEMA[k].title + '</button>').join('');
-  $('tabs').querySelectorAll('button').forEach(b => b.onclick = () => { TAB = b.dataset.t; drawTabs(); draw(); });
+  $('tabs').innerHTML = Object.keys(SCHEMA).map(k => '<button class="nv ' + (k === TAB ? 'on' : '') + '" data-t="' + k + '"><span>' + SCHEMA[k].title + '</span>' +
+    (k === 'orders' && pending() ? '<span class="bdg">' + pending() + '</span>' : '') + '</button>').join('');
+  $('tabs').querySelectorAll('button').forEach(b => b.onclick = () => { TAB = b.dataset.t; drawTabs(); draw(); window.scrollTo({top: 0, behavior: 'smooth'}); });
+}
+function go(t){ TAB = t; drawTabs(); draw(); }
+
+/* ---- upload ---- */
+function uploadFile(f){
+  return new Promise((ok, no) => {
+    if(!/^image\//.test(f.type)) return no(new Error(f.name + ' bukan gambar'));
+    if(f.size > 4 * 1024 * 1024) return no(new Error(f.name + ' lebih dari 4 MB'));
+    const r = new FileReader();
+    r.onerror = () => no(new Error('Gagal membaca file'));
+    r.onload = () => google.script.run.withSuccessHandler(ok).withFailureHandler(no).uploadImage(PASS, r.result.split(',')[1], f.name, f.type);
+    r.readAsDataURL(f);
+  });
 }
 
-function fieldHtml(f, v){
+/* ---- field ---- */
+function fieldHtml(f, v, cls){
   const [k, label, type, hint] = f; v = v || '';
   let input;
   if(type === 'area') input = '<textarea data-k="' + k + '">' + esc(v) + '</textarea>';
   else if(type === 'image') input = '<div class="row"><input data-k="' + k + '" value="' + esc(v) + '" placeholder="Tempel URL gambar atau unggah"><button type="button" class="b sec" data-up="' + k + '">Unggah</button></div>' +
-    '<input type="file" accept="image/*" hidden data-file="' + k + '">';
+    '<input type="file" accept="image/*" hidden data-file="' + k + '"><div class="pv" data-pv="' + k + '"></div>';
+  else if(type === 'images') input = '<input type="hidden" data-k="' + k + '" value="' + esc(v) + '"><div class="ims" data-ims="' + k + '"></div>' +
+    '<div class="row" style="margin-top:10px"><input data-url="' + k + '" placeholder="Atau tempel URL gambar"><button type="button" class="b sec sm" data-addurl="' + k + '">Tambah URL</button></div>' +
+    '<input type="file" accept="image/*" multiple hidden data-mfile="' + k + '">';
   else input = '<input data-k="' + k + '" type="' + (type === 'number' ? 'number' : 'text') + '" value="' + esc(v) + '">';
-  return '<label>' + label + '</label>' + input + (hint ? '<div class="hint">' + hint + '</div>' : '');
+  return '<div class="' + (cls || '') + '"><label>' + label + '</label>' + input + (hint ? '<div class="hint">' + hint + '</div>' : '') + '</div>';
 }
 
 function bindUploads(root){
   root.querySelectorAll('[data-up]').forEach(btn => {
-    const file = root.querySelector('[data-file="' + btn.dataset.up + '"]'), input = root.querySelector('input[data-k="' + btn.dataset.up + '"]');
+    const k = btn.dataset.up, file = root.querySelector('[data-file="' + k + '"]'), input = root.querySelector('input[data-k="' + k + '"]'), pv = root.querySelector('[data-pv="' + k + '"]');
+    const prev = () => { pv.innerHTML = input.value ? '<img src="' + esc(input.value) + '" alt=""><button type="button" class="b sec sm">Hapus</button>' : ''; const x = pv.querySelector('button'); if(x) x.onclick = () => { input.value = ''; prev(); }; };
+    prev(); input.oninput = prev;
     btn.onclick = () => file.click();
-    file.onchange = () => {
-      const f = file.files[0]; if(!f) return;
-      if(f.size > 4 * 1024 * 1024) return toast('Ukuran gambar maksimal 4 MB', true);
+    file.onchange = () => { const f = file.files[0]; file.value = ''; if(!f) return;
       btn.disabled = true; btn.textContent = 'Mengunggah...';
-      const r = new FileReader();
-      r.onload = () => google.script.run.withSuccessHandler(url => { input.value = url; btn.disabled = false; btn.textContent = 'Unggah'; toast('Gambar terunggah'); })
-        .withFailureHandler(e => { btn.disabled = false; btn.textContent = 'Unggah'; fail(e); })
-        .uploadImage(PASS, r.result.split(',')[1], f.name, f.type);
-      r.readAsDataURL(f);
+      uploadFile(f).then(u => { input.value = u; prev(); toast('Gambar terunggah'); }).catch(fail).finally(() => { btn.disabled = false; btn.textContent = 'Unggah'; }); };
+  });
+  root.querySelectorAll('[data-ims]').forEach(box => {
+    const k = box.dataset.ims, hid = root.querySelector('input[data-k="' + k + '"]'), mf = root.querySelector('[data-mfile="' + k + '"]'), uin = root.querySelector('[data-url="' + k + '"]');
+    let list = urlsOf(hid.value), busy = false;
+    const sync = () => { hid.value = list.join('\n'); };
+    const paint = () => {
+      box.innerHTML = list.map((u, i) => '<div class="im"><img src="' + esc(u) + '" alt="">' + (i === 0 ? '<span class="tg">Sampul</span>' : '') +
+        '<div class="ac"><span>' + (i > 0 ? '<button type="button" data-mv="' + i + '" aria-label="Geser maju">&#8249;</button>' : '') + '</span><button type="button" class="x" data-rm="' + i + '" aria-label="Hapus foto">&times;</button></div></div>').join('') +
+        '<button type="button" class="add" ' + (busy ? 'disabled' : '') + '><b>+</b>' + (busy ? 'Mengunggah...' : 'Tambah foto') + '</button>';
+      box.querySelector('.add').onclick = () => mf.click();
+      box.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => { list.splice(+b.dataset.rm, 1); sync(); paint(); });
+      box.querySelectorAll('[data-mv]').forEach(b => b.onclick = () => { const i = +b.dataset.mv; [list[i-1], list[i]] = [list[i], list[i-1]]; sync(); paint(); });
     };
+    mf.onchange = async () => {
+      const files = [...mf.files]; mf.value = ''; if(!files.length) return;
+      busy = true; paint(); let n = 0;
+      for(const f of files){ try { list.push(await uploadFile(f)); n++; sync(); } catch(e){ toast(String(e.message || e).replace(/^Error: /,''), true); } }
+      busy = false; paint(); if(n) toast(n + ' foto terunggah');
+    };
+    root.querySelector('[data-addurl="' + k + '"]').onclick = () => { const u = uin.value.trim(); if(!u) return; list.push(u); uin.value = ''; sync(); paint(); };
+    paint();
   });
 }
 
 const collect = root => { const o = {}; root.querySelectorAll('[data-k]').forEach(i => o[i.dataset.k] = i.value.trim()); return o; };
+function draw(){ ({home: drawHome, settings: drawSettings, orders: drawOrders}[TAB] || drawList)(); }
 
-function draw(){ TAB === 'settings' ? drawSettings() : TAB === 'orders' ? drawOrders() : drawList(); }
+/* ---- ringkasan ---- */
+function drawHome(){
+  const o = DATA.orders || [], lunas = o.filter(x => x.status === 'Lunas'), wait = o.filter(x => x.status === 'Menunggu Verifikasi');
+  const hr = new Date().getHours(), sal = hr < 11 ? 'Selamat pagi' : hr < 15 ? 'Selamat siang' : hr < 19 ? 'Selamat sore' : 'Selamat malam';
+  $('panel').innerHTML = '<h2>' + sal + '</h2><p class="sub">Ini ringkasan website Anda hari ini.</p>' +
+    '<div class="stats">' +
+    '<div class="st' + (wait.length ? ' hot' : '') + '"><b>' + wait.length + '</b><span>Menunggu verifikasi</span></div>' +
+    '<div class="st"><b>' + fmt(lunas.reduce((a, x) => a + Number(x.total || 0), 0)) + '</b><span>Pendapatan (lunas)</span></div>' +
+    '<div class="st"><b>' + lunas.length + '</b><span>Pesanan lunas</span></div>' +
+    '<div class="st"><b>' + (DATA.products || []).length + '</b><span>Produk</span></div>' +
+    '<div class="st"><b>' + (DATA.gallery || []).length + '</b><span>Foto galeri</span></div></div>' +
+    '<div class="sec3"><h3>Perlu tindakan</h3>' +
+    (wait.length ? '<div class="list">' + wait.slice(0, 4).map(r => '<div class="it"><div class="tx"><b>' + esc(r.id) + ' &middot; ' + esc(r.name) + '</b><span>' + fmt(r.total) + '</span></div><button class="b sm amber" data-go="orders">Periksa</button></div>').join('') + '</div>'
+      : '<div class="empty">Tidak ada pesanan yang menunggu verifikasi.</div>') + '</div>' +
+    '<div class="sec3"><h3>Pintasan</h3><div class="row" style="flex-wrap:wrap;margin-top:10px"><button class="b" data-go="products">Tambah / ubah produk</button><button class="b sec" data-go="gallery">Atur galeri</button><button class="b sec" data-go="settings">Pengaturan</button></div></div>';
+  $('panel').querySelectorAll('[data-go]').forEach(b => b.onclick = () => go(b.dataset.go));
+}
 
+/* ---- pesanan ---- */
 function drawOrders(){
   const p = $('panel'), rows = DATA.orders || [];
-  const col = {'Lunas':'#0f8b8d','Ditolak':'#c0392b','Menunggu Verifikasi':'#b9770e'};
-  const fmt = n => 'Rp ' + Number(n).toLocaleString('id-ID');
-  p.innerHTML = '<h2>Pesanan</h2><p class="hint">Klik "Verifikasi lunas" untuk menandai lunas dan otomatis mengirim link produk ke email pembeli.</p>' +
-    (rows.length ? '<div style="overflow:auto"><table><thead><tr><th>Waktu / ID</th><th>Pembeli</th><th>Produk</th><th>Total</th><th>Status</th><th></th></tr></thead><tbody>' +
-    rows.map(r => { let it = []; try { it = JSON.parse(r.items); } catch(e){}
-      return '<tr><td>' + new Date(Number(r.date)).toLocaleString('id-ID') + '<br><b>' + esc(r.id) + '</b></td>' +
-      '<td>' + esc(r.name) + '<br>' + esc(r.email) + '<br>' + esc(r.wa) + '</td><td>' + it.map(i => esc(i.name)).join('<br>') + '</td>' +
-      '<td>' + fmt(r.total) + '</td><td><b style="color:' + (col[r.status] || '#5b6b7a') + '">' + esc(r.status) + '</b>' +
-      (r.proof ? '<br><a href="' + esc(r.proof) + '" target="_blank">Lihat bukti</a>' : '') + '</td>' +
-      '<td><div class="acts" style="flex-direction:column">' +
-      '<button class="b" data-os="' + r.id + '|Lunas">' + (r.status === 'Lunas' ? 'Kirim ulang email' : 'Verifikasi lunas') + '</button>' +
-      (r.status !== 'Lunas' ? '<button class="b del" data-os="' + r.id + '|Ditolak">Tolak</button>' : '') + '</div></td></tr>'; }).join('') +
-    '</tbody></table></div>' : '<p class="hint" style="margin-top:18px">Belum ada pesanan.</p>');
+  const col = {'Lunas':'#0f8b8d','Ditolak':'#c0392b','Menunggu Verifikasi':'#b9770e','Menunggu Pembayaran':'#5b6b7a'};
+  p.innerHTML = '<h2>Pesanan</h2><p class="sub">Klik "Verifikasi lunas" untuk menandai lunas dan otomatis mengirim link produk ke email pembeli.</p>' +
+    (rows.length ? '<div class="list">' + rows.map(r => { let it = []; try { it = JSON.parse(r.items); } catch(e){}
+      return '<div class="od"><div><b>' + esc(r.id) + '</b><small>' + new Date(Number(r.date)).toLocaleString('id-ID') + '</small><div style="margin-top:6px">' + esc(r.name) + '<small>' + esc(r.email) + ' &middot; ' + esc(r.wa) + '</small></div></div>' +
+      '<div><span class="pill" style="background:' + (col[r.status] || '#5b6b7a') + '">' + esc(r.status) + '</span><div>' + it.map(i => esc(i.name)).join(', ') + '</div><b>' + fmt(r.total) + '</b>' +
+      (r.proof ? '<small><a href="' + esc(r.proof) + '" target="_blank" rel="noopener">Lihat bukti bayar</a></small>' : '') + '</div>' +
+      '<div class="acts"><button class="b sm" data-os="' + esc(r.id) + '|Lunas">' + (r.status === 'Lunas' ? 'Kirim ulang email' : 'Verifikasi lunas') + '</button>' +
+      (r.status !== 'Lunas' ? '<button class="b sm del" data-os="' + esc(r.id) + '|Ditolak">Tolak</button>' : '') + '</div></div>'; }).join('') + '</div>'
+      : '<div class="empty">Belum ada pesanan.</div>');
   p.querySelectorAll('[data-os]').forEach(b => b.onclick = () => {
     const [id, st] = b.dataset.os.split('|');
     if(!confirm(st === 'Lunas' ? 'Tandai lunas dan kirim email produk ke pembeli?' : 'Tolak pesanan ini?')) return;
     b.disabled = true;
-    google.script.run.withSuccessHandler(r => { DATA.orders = r; drawOrders(); toast(st === 'Lunas' ? 'Lunas. Email terkirim' : 'Status diubah'); })
+    google.script.run.withSuccessHandler(r => { DATA.orders = r; drawTabs(); drawOrders(); toast(st === 'Lunas' ? 'Lunas. Email terkirim' : 'Status diubah'); })
       .withFailureHandler(fail).adminSetOrderStatus(PASS, id, st);
   });
 }
 
+/* ---- pengaturan ---- */
 function drawSettings(){
   const p = $('panel'), s = DATA.settings;
-  p.innerHTML = '<h2>Pengaturan umum</h2>' + SCHEMA.settings.fields.map(f => fieldHtml(f, s[f[0]])).join('') +
-    '<button class="b" id="save" style="margin-top:20px">Simpan pengaturan</button>';
+  p.innerHTML = '<h2>Pengaturan</h2><p class="sub">Tampilan dan kontak website.</p>' +
+    SCHEMA.settings.groups.map(g => '<div class="grp"><h3>' + g[0] + '</h3><div class="cols">' + g[1].map(f => fieldHtml(f, s[f[0]], f[2] === 'area' || f[2] === 'image' ? 'full' : '')).join('') + '</div></div>').join('') +
+    '<div class="stick"><button class="b" id="save">Simpan pengaturan</button></div>';
   bindUploads(p);
   $('save').onclick = e => { e.target.disabled = true;
-    google.script.run.withSuccessHandler(r => { DATA.settings = r; e.target.disabled = false; toast('Pengaturan disimpan'); }).withFailureHandler(fail).saveSettings(PASS, collect(p)); };
+    google.script.run.withSuccessHandler(r => { DATA.settings = r; $('sbName').textContent = r.siteTitle || 'CMS'; e.target.disabled = false; toast('Pengaturan disimpan'); }).withFailureHandler(fail).saveSettings(PASS, collect(p)); };
 }
 
-function drawList(editRow){
-  const sc = SCHEMA[TAB], rows = DATA[TAB], p = $('panel');
-  const cell = (k, r) => k === 'image' ? (r[k] ? '<img src="' + esc(r[k]) + '" alt="">' : '') : esc(k === 'price' && r[k] ? 'Rp ' + Number(r[k]).toLocaleString('id-ID') : r[k]);
-  p.innerHTML = '<div class="head"><h2>' + sc.title + '</h2><button class="b" id="add">+ Tambah baru</button></div>' +
-    '<div id="form"></div>' +
-    (rows.length ? '<table><tbody>' + rows.map(r => '<tr>' + sc.list.map(k => '<td>' + cell(k, r) + '</td>').join('') +
-      '<td><div class="acts"><button class="b sec" data-e="' + r.id + '">Ubah</button><button class="b del" data-d="' + r.id + '">Hapus</button></div></td></tr>').join('') + '</tbody></table>'
-      : '<p class="hint" style="margin-top:18px">Belum ada data. Klik "Tambah baru" untuk mulai.</p>');
+/* ---- galeri & produk ---- */
+function drawList(){
+  const sc = SCHEMA[TAB], rows = DATA[TAB] || [], p = $('panel');
+  const thumb = r => { const im = urlsOf(r.image); return '<div class="th">' + (im[0] ? '<img src="' + esc(im[0]) + '" alt="" loading="lazy">' : '') + (im.length > 1 ? '<em>' + im.length + ' foto</em>' : '') + '</div>'; };
+  p.innerHTML = '<div class="head"><div><h2>' + sc.title + '</h2><p class="sub">' + sc.sub + '</p></div><button class="b" id="add">+ Tambah baru</button></div><div id="form"></div>' +
+    (rows.length ? '<div class="list">' + rows.map(r => '<div class="it">' + thumb(r) + '<div class="tx"><b>' + esc(TAB === 'products' ? r.name : (r.caption || 'Tanpa keterangan')) + '</b>' +
+      (TAB === 'products' ? '<span>' + fmt(r.price) + '</span>' : '') + '</div>' +
+      '<div class="acts"><button class="b sec sm" data-e="' + esc(r.id) + '">Ubah</button><button class="b del sm" data-d="' + esc(r.id) + '">Hapus</button></div></div>').join('') + '</div>'
+      : '<div class="empty">Belum ada data. Klik "Tambah baru" untuk mulai.</div>');
   $('add').onclick = () => form({});
   p.querySelectorAll('[data-e]').forEach(b => b.onclick = () => form(rows.find(r => r.id === b.dataset.e)));
   p.querySelectorAll('[data-d]').forEach(b => b.onclick = () => {
     if(!confirm('Hapus data ini?')) return; b.disabled = true;
     google.script.run.withSuccessHandler(r => { DATA[TAB] = r; drawList(); toast('Dihapus'); }).withFailureHandler(fail).deleteRow(PASS, TAB, b.dataset.d);
   });
-  if(editRow) form(editRow);
 }
 
 function form(row){
   const f = $('form');
-  f.innerHTML = '<div style="border:1px solid var(--line);border-radius:12px;padding:6px 18px 18px;margin-top:16px;background:#fafcfd"><h3 style="margin-top:14px">' + (row.id ? 'Ubah data' : 'Data baru') + '</h3>' +
+  f.innerHTML = '<div class="fm"><h3>' + (row.id ? 'Ubah data' : 'Data baru') + '</h3>' +
     SCHEMA[TAB].fields.map(x => fieldHtml(x, row[x[0]])).join('') +
-    '<div class="row" style="margin-top:18px"><button class="b" id="ok">Simpan</button><button class="b sec" id="cancel">Batal</button></div></div>';
+    '<div class="row" style="margin-top:20px"><button class="b" id="ok">Simpan</button><button class="b sec" id="cancel">Batal</button></div></div>';
   bindUploads(f);
   $('cancel').onclick = () => f.innerHTML = '';
   $('ok').onclick = e => { e.target.disabled = true;
