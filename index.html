@@ -78,7 +78,7 @@ nav a.on,nav a.on:hover{background:var(--amber);color:var(--ink)}
 .empty{color:var(--muted);padding:20px;border:1px dashed rgba(11,34,57,.25);border-radius:12px;background:rgba(255,255,255,.4)}
 
 /* jasa website custom */
-.svc{border-radius:28px;padding:44px;display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;color:#fff;background:linear-gradient(135deg,rgba(11,34,57,.9),rgba(30,111,224,.85));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.25);box-shadow:0 20px 60px rgba(11,34,57,.25)}
+.svc{border-radius:28px;padding:44px;color:#fff;background:linear-gradient(135deg,rgba(11,34,57,.9),rgba(30,111,224,.85));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.25);box-shadow:0 20px 60px rgba(11,34,57,.25)}
 .svc h2{color:#fff;margin-bottom:12px}
 .svc p{color:#d3e2ec;max-width:480px;margin-bottom:26px}
 .svc ul{list-style:none;padding:0;display:grid;gap:12px}
@@ -88,17 +88,19 @@ nav a.on,nav a.on:hover{background:var(--amber);color:var(--ink)}
 .svc b{display:block;font-size:1.02rem}
 .svc small{color:#c3d6e3;font-size:.86rem}
 
-/* proses kerja */
-.flow-h{text-align:center;max-width:640px;margin:0 auto 36px}
-.flow-h span{display:inline-block;font-size:.76rem;font-weight:800;letter-spacing:.14em;color:var(--teal);background:rgba(30,111,224,.12);padding:5px 14px;border-radius:999px;margin-bottom:14px}
-.flow-h h2{margin-bottom:8px}
-.flow-h p{color:var(--muted)}
-.flow{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.flow li{position:relative;border-radius:22px;padding:30px 22px 24px;overflow:hidden}
-.flow li::before{content:'';position:absolute;left:0;top:0;height:5px;width:var(--p);background:linear-gradient(90deg,var(--teal),var(--amber));border-radius:0 5px 5px 0}
-.flow .n{display:block;font-size:2.7rem;font-weight:800;line-height:1;letter-spacing:-.03em;background:linear-gradient(135deg,var(--teal),#6f8cff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.flow h3{font-size:1.08rem;margin:12px 0 6px}
-.flow p{color:var(--muted);font-size:.92rem}
+.svc-top{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+/* proses kerja (bagian dari rangkaian jasa) */
+.svc-flow{margin-top:40px;padding-top:34px;border-top:1px solid rgba(255,255,255,.2)}
+.flow-h{text-align:center;max-width:620px;margin:0 auto 28px}
+.flow-h span{display:inline-block;font-size:.76rem;font-weight:800;letter-spacing:.14em;color:var(--amber);background:rgba(255,255,255,.12);padding:5px 14px;border-radius:999px;margin-bottom:12px}
+.flow-h h3{font-size:clamp(1.25rem,2.4vw,1.65rem);font-weight:800;letter-spacing:-.01em}
+.flow{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.flow li{position:relative;border-radius:20px;padding:30px 20px 22px;overflow:hidden;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)}
+.flow li::before{content:'';position:absolute;left:0;top:0;height:5px;width:var(--p);background:linear-gradient(90deg,var(--amber),#8fc2ff);border-radius:0 5px 5px 0}
+.flow .n{display:block;font-size:2.5rem;font-weight:800;line-height:1;letter-spacing:-.03em;background:linear-gradient(135deg,var(--amber),#8fc2ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.flow h4{font-size:1.05rem;margin:12px 0 6px}
+.flow li p{color:#c3d6e3;font-size:.9rem;margin:0;max-width:none}
+.svc-end{margin-top:30px;text-align:center}
 @media(max-width:860px){.flow{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.flow{grid-template-columns:1fr}}
 
@@ -106,21 +108,21 @@ nav a.on,nav a.on:hover{background:var(--amber);color:var(--ink)}
 #pdetail{padding:34px 0 64px}
 .back{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.65);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--gl);border-radius:999px;padding:9px 20px;font:inherit;font-weight:700;color:var(--ink);cursor:pointer;box-shadow:0 4px 14px rgba(11,34,57,.1)}
 .back:hover{background:#fff}
-.pbox{margin-top:18px;border-radius:26px;display:grid;grid-template-columns:1.1fr 1fr;overflow:hidden;background:rgba(255,255,255,.62);backdrop-filter:blur(24px) saturate(170%);-webkit-backdrop-filter:blur(24px) saturate(170%);border:1px solid var(--gl);box-shadow:0 20px 60px rgba(11,34,57,.16)}
+.pbox{margin-top:18px;border-radius:26px;display:block;overflow:hidden;background:rgba(255,255,255,.62);backdrop-filter:blur(24px) saturate(170%);-webkit-backdrop-filter:blur(24px) saturate(170%);border:1px solid var(--gl);box-shadow:0 20px 60px rgba(11,34,57,.16)}
 #pdetail .pi{display:flex;flex-direction:column;background:rgba(30,111,224,.08)}
-.pm{position:relative;flex:1;min-height:440px;background:#dbe8ec}
+.pm{position:relative;flex:none;width:100%;aspect-ratio:16/8;max-height:520px;background:#dbe8ec}
 .pm img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .ar{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.35);backdrop-filter:blur(8px);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer;z-index:2}
 .ar.l{left:10px}.ar.r{right:10px}
-.th{display:flex;gap:8px;padding:10px;overflow-x:auto}
-.th img{width:66px;height:50px;flex:none;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent;opacity:.65}
+.th{display:flex;gap:10px;padding:14px;overflow-x:auto;justify-content:center}
+.th img{width:88px;height:62px;flex:none;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent;opacity:.65}
 .th img.on{border-color:var(--teal);opacity:1}
-#pdetail .pt{padding:32px 28px;display:flex;flex-direction:column;gap:10px}
+#pdetail .pt{padding:30px 36px 36px;display:flex;flex-direction:column;gap:10px;max-width:860px}
 #pdetail h3{font-size:1.6rem;line-height:1.25}
 #pdetail .price{font-size:1.5rem}
 #pdetail .txt{white-space:pre-line;color:var(--muted);font-size:1rem}
-#pdetail .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:14px}
-#pdetail .acts .btn{text-align:center;flex:1;min-width:130px}
+#pdetail .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;padding-top:14px}
+#pdetail .acts .btn{text-align:center;flex:0 1 auto;min-width:150px}
 
 /* keranjang */
 #cmodal{position:fixed;inset:0;background:rgba(11,34,57,.7);z-index:110;display:none;overflow:auto;padding:30px 16px}
@@ -196,7 +198,8 @@ footer .brand{color:#fff;margin-bottom:12px}
   #products h3{font-size:.95rem}
   #products .card .btn{padding:8px 10px;font-size:.82rem}
   .pbox{grid-template-columns:1fr;border-radius:22px}
-  .svc{grid-template-columns:1fr;padding:26px 20px;gap:24px}
+  .svc-top{grid-template-columns:1fr;gap:24px}
+  .svc{padding:26px 20px}
   .pm{min-height:0;flex:none;aspect-ratio:16/11}
   #pdetail .pt{padding:22px 20px}
 }
@@ -246,29 +249,31 @@ footer .brand{color:#fff;margin-bottom:12px}
   </div></section>
 
   <section id="jasa"><div class="wrap"><div class="svc">
-    <div>
+    <div class="svc-top"><div>
       <h2>Jasa Pembuatan Website Custom</h2>
       <p>Butuh website atau aplikasi yang benar-benar sesuai kebutuhan bisnis Anda? Kami buatkan dari nol sampai siap online.</p>
-      <a class="btn" id="svcBtn" target="_blank" rel="noopener">Mulai konsultasi</a>
+      <a class="btn svcBtn" target="_blank" rel="noopener">Mulai konsultasi</a>
     </div>
     <ul>
       <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/></svg></span><div><b>Full Custom Coding</b><small>Dikodekan dari nol sesuai kebutuhan Anda.</small></div></li>
       <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="14" height="11" rx="2"/><path d="M8 19h4M10 15v4"/><rect x="16" y="9" width="5" height="10" rx="1.5"/></svg></span><div><b>Website &amp; Apps</b><small>Situs web dan aplikasi dalam satu layanan.</small></div></li>
       <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><div><b>SEO Friendly</b><small>Struktur siap dikenali mesin pencari.</small></div></li>
     </ul>
+    </div>
+    <div class="svc-flow">
+      <div class="flow-h"><span>PROSES KERJA</span><h3>Dari ide sampai website Anda tayang</h3></div>
+      <ol class="flow">
+        <li style="--p:17%"><span class="n">01</span><h4>Konsultasi</h4><p>Ceritakan tujuan, target pengunjung, dan fitur yang Anda inginkan.</p></li>
+        <li style="--p:33%"><span class="n">02</span><h4>Kumpulkan Bahan</h4><p>Siapkan logo, foto, teks, dan data penting yang akan dipakai.</p></li>
+        <li style="--p:50%"><span class="n">03</span><h4>Rancang Struktur</h4><p>Kami susun peta halaman dan alur navigasi agar mudah digunakan.</p></li>
+        <li style="--p:67%"><span class="n">04</span><h4>Desain &amp; Coding</h4><p>Tampilan dirancang lalu dikodekan menjadi website yang cepat.</p></li>
+        <li style="--p:83%"><span class="n">05</span><h4>Uji &amp; Revisi</h4><p>Dicek di berbagai perangkat, lalu disempurnakan sesuai masukan.</p></li>
+        <li style="--p:100%"><span class="n">06</span><h4>Tayang</h4><p>Website dipublikasikan dan siap Anda gunakan serta promosikan.</p></li>
+      </ol>
+      <div class="svc-end"><a class="btn svcBtn" target="_blank" rel="noopener">Mulai konsultasi</a></div>
+    </div>
   </div></div></section>
-  <section id="proses"><div class="wrap">
-    <div class="flow-h"><span>PROSES KERJA</span><h2>Dari ide sampai website Anda tayang</h2><p>Enam langkah sederhana, jelas, dan bisa Anda pantau dari awal.</p></div>
-    <ol class="flow">
-      <li class="glass" style="--p:17%"><span class="n">01</span><h3>Konsultasi</h3><p>Ceritakan tujuan, target pengunjung, dan fitur yang Anda inginkan.</p></li>
-      <li class="glass" style="--p:33%"><span class="n">02</span><h3>Kumpulkan Bahan</h3><p>Siapkan logo, foto, teks, dan data penting yang akan dipakai.</p></li>
-      <li class="glass" style="--p:50%"><span class="n">03</span><h3>Rancang Struktur</h3><p>Kami susun peta halaman dan alur navigasi agar mudah digunakan.</p></li>
-      <li class="glass" style="--p:67%"><span class="n">04</span><h3>Desain &amp; Coding</h3><p>Tampilan dirancang lalu dikodekan menjadi website yang cepat.</p></li>
-      <li class="glass" style="--p:83%"><span class="n">05</span><h3>Uji &amp; Revisi</h3><p>Dicek di berbagai perangkat, lalu disempurnakan sesuai masukan.</p></li>
-      <li class="glass" style="--p:100%"><span class="n">06</span><h3>Tayang</h3><p>Website dipublikasikan dan siap Anda gunakan serta promosikan.</p></li>
-    </ol>
-  </div></section>
-</div>
+  </div>
 
 <section id="pdetail" hidden><div class="wrap">
   <button class="back" id="pback">&larr; Kembali ke produk</button>
@@ -414,7 +419,7 @@ function render(d){
   const b = document.querySelector('.banner');
   if(s.bannerImage){ b.style.backgroundImage = 'url("' + s.bannerImage + '")'; b.classList.add('img'); }
   $('waBtn').href = waLink(s); $('waFloat').href = waLink(s);
-  $('svcBtn').href = waLink(s, 'Halo, saya ingin konsultasi pembuatan website custom.');
+  document.querySelectorAll('.svcBtn').forEach(a => a.href = waLink(s, 'Halo, saya ingin konsultasi pembuatan website custom.'));
 
   buildGallery(d.gallery);
 
