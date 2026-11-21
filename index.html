@@ -203,6 +203,27 @@ footer .brand{color:#fff;margin-bottom:12px}
   .pm{min-height:0;flex:none;aspect-ratio:16/11}
   #pdetail .pt{padding:22px 20px}
 }
+.brand{min-width:0}.brand span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.th{justify-content:safe center}
+@media(max-width:800px){
+  nav a{padding:13px 14px}
+  #waFloat{right:14px;bottom:calc(14px + env(safe-area-inset-bottom));width:52px;height:52px}
+  #waFloat svg{width:28px;height:28px}
+  .ar{width:44px;height:44px}
+  #cmodal{padding:12px}
+  #cmodal .cbox{padding:20px 18px}
+  #cmodal input{font-size:16px}
+  #pdetail{padding:20px 0 48px}
+  .th{padding:12px}
+}
+@media(max-width:560px){
+  .wrap{padding:0 16px}
+  #pdetail .acts .btn{flex:1 1 100%}
+  #pdetail h3{font-size:1.35rem}
+  .banner p{font-size:1rem}
+  .svc li{padding:12px}
+}
+@media(max-width:380px){#products{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.ct,.ct figure{transition:none}}
 </style>
 </head>
@@ -326,8 +347,12 @@ function hideLoader(){ setTimeout(() => { clearInterval(tick); $('loader').class
 function go(id){ history.pushState(null, '', '#' + id); showHome(id); }
 document.querySelectorAll('[data-go]').forEach(a => a.onclick = e => { e.preventDefault(); go(a.dataset.go); });
 $('burger').onclick = () => $('nav').classList.toggle('on');
-$('pback').onclick = () => { if(history.length > 1) history.back(); else location.hash = '#produk'; };
-document.addEventListener('keydown', e => { if(e.key === 'Escape') $('cmodal').classList.remove('on'); });
+$('pback').onclick = () => {
+  if(INAPP){ INAPP = false; history.back(); }
+  else { history.replaceState(null, '', '#produk'); showHome('produk'); }
+};
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeCart(); });
+document.addEventListener('click', e => { if(!e.target.closest('nav,#burger')) $('nav').classList.remove('on'); });
 $('yr').textContent = new Date().getFullYear();
 
 function waLink(s, text){ return 'https://wa.me/' + s.waNumber.replace(/\D/g, '') + '?text=' + encodeURIComponent(text || s.waText); }
@@ -361,7 +386,7 @@ function buildGallery(list){
 }
 
 /* ---- halaman detail produk (rute: #p-ID) ---- */
-let SY = 0;
+let SY = 0, INAPP = false, MOPEN = false;
 function mark(){
   let cur = 'beranda';
   if(!$('pdetail').hidden) cur = 'produk';
@@ -431,7 +456,7 @@ function render(d){
     : empty('Produk akan segera hadir.');
   CART = CART.filter(id => D.products.some(p => p.id === id)); saveCart();
   document.querySelectorAll('#products .card').forEach(c => {
-    const open = () => { location.hash = '#p-' + D.products[c.dataset.i].id; };
+    const open = () => { INAPP = true; location.hash = '#p-' + D.products[c.dataset.i].id; };
     c.onclick = e => { const b = e.target.closest('[data-add]'); if(b){ addToCart(b.dataset.add); return; } open(); };
     c.onkeydown = e => { if(e.key === 'Enter') open(); };
   });
@@ -450,10 +475,18 @@ function saveCart(){ try { localStorage.setItem('cart', JSON.stringify(CART)); }
   $('cartN').textContent = CART.length; $('cartN').style.display = CART.length ? 'flex' : 'none'; }
 function flash(m){ const f = $('flash'); f.textContent = m; f.style.display = 'block'; clearTimeout(f._t); f._t = setTimeout(() => f.style.display = 'none', 1800); }
 function addToCart(id, openNow){ if(!CART.includes(id)) CART.push(id); saveCart(); openNow ? openCart('cart') : flash('Ditambahkan ke keranjang'); }
-function openCart(v, a){ $('cmodal').classList.add('on'); V[v](a); }
+function openCart(v, a){
+  if(!MOPEN){ try { history.pushState({m: 1}, '', location.href); MOPEN = true; } catch(e){} }
+  $('cmodal').classList.add('on'); V[v](a);
+}
+function closeCart(){
+  $('cmodal').classList.remove('on');
+  if(MOPEN){ MOPEN = false; history.back(); }
+}
+window.addEventListener('popstate', () => { if(MOPEN){ MOPEN = false; $('cmodal').classList.remove('on'); } });
 $('cartBtn').onclick = () => openCart('cart');
-$('cclose').onclick = () => $('cmodal').classList.remove('on');
-$('cmodal').onclick = e => { if(e.target === $('cmodal')) $('cmodal').classList.remove('on'); };
+$('cclose').onclick = closeCart;
+$('cmodal').onclick = e => { if(e.target === $('cmodal')) closeCart(); };
 const body = () => $('cbody');
 const msg = (t) => { const m = $('msg'); if(m) m.textContent = t; };
 const busy = (b, t) => { b.disabled = !!t; if(t) b._o = b.textContent; b.textContent = t || b._o; };
@@ -497,7 +530,7 @@ const V = {
     else { h += '<p style="margin-top:12px">Pembayaran terverifikasi. Link unduhan sudah dikirim ke email Anda (cek juga folder spam).</p>'; }
     h += '<div style="text-align:center"><button class="lnk" id="bk">Tutup</button></div>';
     body().innerHTML = h;
-    $('bk').onclick = () => $('cmodal').classList.remove('on');
+    $('bk').onclick = closeCart;
     if($('up')) $('up').onclick = e => {
       const f = $('pf').files[0]; if(!f) return msg('Pilih file bukti bayar dulu');
       if(f.size > 4 * 1024 * 1024) return msg('Ukuran file maksimal 4 MB');
